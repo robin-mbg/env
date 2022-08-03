@@ -1,3 +1,4 @@
+// package env provides utility methods for accessing environment variables with error, panic, and default value handling.
 package env
 
 import (
@@ -6,22 +7,28 @@ import (
 	"strconv"
 )
 
+// Sets an environment variable to a string value
 func SetString(key string, value string) error {
 	return os.Setenv(key, value)
 }
 
+
+// Sets an environment variable to an int value
 func SetInt(key string, value int) error {
 	return SetString(key, strconv.Itoa(value))
 }
 
+// Sets an environment variable to a float64 value
 func SetFloat64(key string, value float64) error {
 	return SetString(key, fmt.Sprintf("%f", value))
 }
 
+// Sets an environment variable to a bool value
 func SetBool(key string, value bool) error {
 	return SetString(key, fmt.Sprintf("%v", value))
 }
 
+// Gets a string value from an environment variable, returns an error if that variable is empty
 func GetStringOrError(key string) (string, error) {
 	value := os.Getenv(key)
 	if value == "" {
@@ -31,6 +38,7 @@ func GetStringOrError(key string) (string, error) {
 	return value, nil
 }
 
+// Gets a string value from an environment variable, returns a default if that variable is empty
 func GetStringOrDefault(key string, defaultValue string) string {
 	value, err := GetStringOrError(key)
 	if err != nil {
@@ -40,6 +48,7 @@ func GetStringOrDefault(key string, defaultValue string) string {
 	return value
 }
 
+// Gets a string value from an environment variable, panics if that variable is empty
 func GetStringOrPanic(key string) string {
 	value, err := GetStringOrError(key)
 	if err != nil {
@@ -49,6 +58,7 @@ func GetStringOrPanic(key string) string {
 	return value
 }
 
+// Gets a bool value from an environment variable, returns an error if that variable is empty
 func GetBoolOrError(key string) (bool, error) {
 	value := os.Getenv(key)
 	if value == "" {
@@ -63,6 +73,7 @@ func GetBoolOrError(key string) (bool, error) {
 	return boolValue, nil
 }
 
+// Gets a bool value from an environment variable, returns a default value if that variable is empty
 func GetBoolOrDefault(key string, defaultValue bool) bool {
 	value, err := GetBoolOrError(key)
 	if err != nil {
@@ -72,6 +83,7 @@ func GetBoolOrDefault(key string, defaultValue bool) bool {
 	return value
 }
 
+// Gets a bool value from an environment variable, panics if that variable is empty
 func GetBoolOrPanic(key string) bool {
 	value, err := GetBoolOrError(key)
 	if err != nil {
@@ -81,6 +93,7 @@ func GetBoolOrPanic(key string) bool {
 	return value
 }
 
+// Gets an int value from an environment variable, returns an error if that variable is empty
 func GetIntOrError(key string) (int, error) {
 	value := os.Getenv(key)
 	if value == "" {
@@ -95,6 +108,7 @@ func GetIntOrError(key string) (int, error) {
 	return int(intValue), nil
 }
 
+// Gets an int value from an environment variable, returns a default value if that variable is empty
 func GetIntOrDefault(key string, defaultValue int) int {
 	value, err := GetIntOrError(key)
 	if err != nil {
@@ -104,6 +118,7 @@ func GetIntOrDefault(key string, defaultValue int) int {
 	return value
 }
 
+// Gets an int value from an environment variable, panics if that variable is empty
 func GetIntOrPanic(key string) int {
 	value, err := GetIntOrError(key)
 	if err != nil {
@@ -113,6 +128,7 @@ func GetIntOrPanic(key string) int {
 	return value
 }
 
+// Gets a float64 value from an environment variable, returns an error if that variable is empty
 func GetFloat64OrError(key string) (float64, error) {
 	value := os.Getenv(key)
 	if value == "" {
@@ -127,6 +143,7 @@ func GetFloat64OrError(key string) (float64, error) {
 	return floatValue, nil
 }
 
+// Gets a float64 value from an environment variable, returns a default value if that variable is empty
 func GetFloat64OrDefault(key string, defaultValue float64) float64 {
 	value, err := GetFloat64OrError(key)
 	if err != nil {
@@ -136,6 +153,7 @@ func GetFloat64OrDefault(key string, defaultValue float64) float64 {
 	return value
 }
 
+// Gets a float64 value from an environment variable, panics if that variable is empty
 func GetFloat64OrPanic(key string) float64 {
 	value, err := GetFloat64OrError(key)
 	if err != nil {
