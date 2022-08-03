@@ -6,6 +6,22 @@ import (
 	"strconv"
 )
 
+func SetString(key string, value string) error {
+	return os.Setenv(key, value)
+}
+
+func SetInt(key string, value int) error {
+	return SetString(key, strconv.Itoa(value))
+}
+
+func SetFloat64(key string, value float64) error {
+	return SetString(key, fmt.Sprintf("%f", value))
+}
+
+func SetBool(key string, value bool) error {
+	return SetString(key, fmt.Sprintf("%v", value))
+}
+
 func GetStringOrError(key string) (string, error) {
 	value := os.Getenv(key)
 	if value == "" {
@@ -128,4 +144,3 @@ func GetFloat64OrPanic(key string) float64 {
 
 	return value
 }
-
