@@ -3,6 +3,7 @@ simple, reliable, convenient use of environment variables from Go code
 
 [![GoDoc](https://godoc.org/github.com/robin-mbg/env?status.svg)](https://godoc.org/github.com/robin-mbg/env)
 [![GoReport](https://goreportcard.com/badge/github.com/robin-mbg/env)](https://goreportcard.com/report/github.com/robin-mbg/env)
+![Build](https://github.com/robin-mbg/env/actions/workflows/main.yaml/badge.svg)
 
 ## Motivation
 
@@ -16,10 +17,16 @@ Currently, the following data types are supported:
 * bool
 * float64
 
-Each of those types can be retrieved from the environment as follows:
+Each of those types can be retrieved from the environment using one of three methods:
 
 ```go
-username := env.GetStringOrDefault("USERNAME", "default-user")
-userID := env.GetIntOrError("USER_ID")
-isActive := env.GetBoolOrPanic("IS_ACTIVE")
+username, err := env.GetStringOrError("USERNAME")
+usernameWithDefault := env.GetStringOrDefault("USERNAME", "default-user")
+requiredUsername := env.GetBoolOrPanic("USERNAME")
+```
+
+For each of those, a `Set<TypeName>` function is also available.
+
+```go
+env.SetString("USERNAME", "testUser")
 ```
